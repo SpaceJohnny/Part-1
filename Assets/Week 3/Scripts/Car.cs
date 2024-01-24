@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-    Rididbody2D rigidbody;
+    Rigidbody2D rigidbody;
     float acceleration;
     float steering;
     public float forwardSpeed = 300;
     public float steeringSpeed = 30;
+    public float maxSpeed = 250;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent Component<Rigidbody2D>();
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -27,5 +28,9 @@ public class Car : MonoBehaviour
     {
         rigidbody.AddTorque(steering * -steeringSpeed * Time.deltaTime);
         Vector2 force = transform.up * acceleration * forwardSpeed * Time.deltaTime;
+        if (rigidbody.velocity.magnitude < maxSpeed)
+        {
+            rigidbody.AddForce(force);
+        }
     }
 }
