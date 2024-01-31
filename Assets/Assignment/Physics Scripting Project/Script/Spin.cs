@@ -17,11 +17,16 @@ public class Spin : MonoBehaviour
         transform.Rotate(0,0, -speed * Time.deltaTime);
     }
 
-    void OnTriggerEnter2D (Collider2D other)
+    //I tried to make it so that once the car touches the barrier it starts rotating
+    //the barrier wasn't detecting the car making contact by using the debug.log
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.gameObject.name == "RaceCar")
-        {
-            transform.Translate(Vector2.up * Time.deltaTime * speed);
-        }
+        Debug.Log("RaceCar touched barrier 2");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Trigger barrier 2");
+        transform.Rotate(0, 0, -speed * Time.deltaTime);
     }
 }
